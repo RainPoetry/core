@@ -1,0 +1,5 @@
+
+Ssquid:S1191"5Use classes from the Java API instead of Sun classes.(éª‚€8Øïî-
+[
+squid:S106"9Replace this use of System.out or System.err by a logger.(†Éâæùÿÿÿÿ8Øïî-
+Fsquid:S1068"(Remove this unused "name" private field.(Ë¥¼8Øïî-

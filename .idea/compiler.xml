@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="flume-cc" />
+        <module name="kafka-rpc" />
+        <module name="spark-rpc" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="core" target="1.8" />
+      <module name="flume-cc" target="1.8" />
+      <module name="kafka-core" target="1.8" />
+      <module name="kafka-rpc" target="1.8" />
+      <module name="rpc" target="1.8" />
+      <module name="spark-core" target="1.8" />
+      <module name="spark-rpc" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
