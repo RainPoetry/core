@@ -1,0 +1,63 @@
+package com.guava.cc.oracle.monitor.oracle;
+
+/*
+ * User: chenchong
+ * Date: 2019/3/14
+ * description:
+ */
+
+import com.guava.cc.oracle.monitor.logminer.LogMiner;
+import com.guava.cc.oracle.monitor.offset.OracleDBFile;
+import com.guava.cc.oracle.utils.db.JdbcManager;
+import com.rainpoetry.common.io.ReadWriteFile;
+import com.rainpoetry.common.utils.EventLoop;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.nio.ByteBuffer;
+import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+
+public class OracleDDLThread implements Runnable{
+
+	private static final Logger logger = LoggerFactory.getLogger(OracleDDLThread.class);
+
+	private String offset;
+	private final ReadWriteFile offsetFile;
+	private final EventLoop loop;
+	private final Connection connection;
+	private LogMiner logMiner;
+
+
+	public OracleDDLThread(String offsetFile, EventLoop loop, Connection connection,Map<String,Object> maps) {
+		File f = new File(offsetFile);
+		if (!f.getParentFile().exists())
+			f.getParentFile().mkdirs();
+		this.offsetFile = new OracleDBFile(f);
+		this.loop = loop;
+		this.connection = connection;
+		this.logMiner = new LogMiner.Builder()
+				.config(maps)
+				.connect(connection)
+				.build();
+	}
+
+	@Override
+	public void run() {
+		logger.info("开始 Oracle 日志采集");
+		ByteBuffer buffer = offsetFile.read();
+		if (buffer.capacity() > 0 )
+			offset = new String(buffer.array());
+		List<Map<String,String>> list = logMiner.analysis(offset);
+		if (offset !=null && !offset.trim().equals("0"))
+			list.forEach(loop::post);
+		offsetFile.write(Arrays.asList(logMiner.maxScn+""));
+		logger.info("update scn 记录： " + logMiner.maxScn);
+	}
+}
