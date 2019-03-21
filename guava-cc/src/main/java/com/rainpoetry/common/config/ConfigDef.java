@@ -1,9 +1,9 @@
-package com.cc.config;
+package com.rainpoetry.common.config;
 
 
-import com.cc.config.validate.Validator;
-import com.cc.exception.ConfigException;
-import com.cc.utils.Utils;
+
+import com.rainpoetry.common.config.validate.Validator;
+import com.rainpoetry.common.utils.Utils;
 
 import java.util.*;
 import java.util.regex.Pattern;

@@ -1,6 +1,7 @@
-package com.cc.core.spark.config.validate;
+package com.rainpoetry.common.config.validate;
 
-import com.cc.core.spark.error.ConfigException;
+
+import com.rainpoetry.common.config.ConfigException;
 
 /**
  * User: chenchong

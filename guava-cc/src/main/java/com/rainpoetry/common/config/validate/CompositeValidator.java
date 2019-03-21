@@ -1,4 +1,4 @@
-package com.cc.core.spark.config.validate;
+package com.rainpoetry.common.config.validate;
 
 import java.util.Arrays;
 import java.util.Collections;
