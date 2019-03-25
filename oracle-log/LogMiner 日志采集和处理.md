@@ -39,32 +39,32 @@ $ORACLE_HOME/rdbms/admin/dbmslmd.sq
 sqlplus user/passwd as sysdba
 ```
 
-1. 查看数据字典文件目录
+2. 查看数据字典文件目录
 
 ```
 show parameter utl_file_dir
 ```
 
-1. 设置 数据字典文件目录
+3. 设置 数据字典文件目录
 
 ```
 alter system set utl_file_dir='E:\oracledb\dic' scope=spfile;
 ```
 
-1. 关闭、重启数据库：
+4. 关闭、重启数据库：
 
 ```
 shutdown immediate
 startup
 ```
 
-1. 查看数据字典文件目录
+5. 查看数据字典文件目录
 
 ```
 show parameter utl_file_dir
 ```
 
-1. 在数据字典目录下创建数据字典文件
+6. 在数据字典目录下创建数据字典文件
 
 ```
 exec dbms_logmnr_d.build( 'dictionary.ora', 'E:\oracledb\dic')
