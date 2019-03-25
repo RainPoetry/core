@@ -171,4 +171,4 @@ AND seg_type_name='TABLE' AND operation !='SELECT_FOR_UPDATE'
   // 更通用的方式
   String type2 = DataBase.from(MySql.class,"BIGINT").to(Postgres.class);
   ```
-    [链接地址] (https://github.com/RainPoetry/core/blob/master/guava-cc/src/main/java/com/rainpoetry/common/db/relation) 
+    [链接地址](https://github.com/RainPoetry/core/blob/master/guava-cc/src/main/java/com/rainpoetry/common/db/relation)
