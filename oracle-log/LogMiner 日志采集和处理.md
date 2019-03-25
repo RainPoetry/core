@@ -116,7 +116,7 @@ AND seg_type_name='TABLE' AND operation !='SELECT_FOR_UPDATE'
 
 实现方式：采用 JDBC 自带的 CallableStatement 完成上述的操作
 
-> [参考blog]: https://www.cnblogs.com/shishanyuan/p/3142713.html
+>   [链接地址] (https://github.com/RainPoetry/core/blob/master/oracle-log/src/main/java/com/cc/oracle/monitor/logminer/LogMiner.java) 
 
 ### 提取 LogMiner 中的关键数据
 
@@ -146,7 +146,7 @@ AND seg_type_name='TABLE' AND operation !='SELECT_FOR_UPDATE'
   String RENAME_REGEX = "(?<=RENAME COLUMN)\\s+\"(\\w+)\"\\s+TO\\s+\"(\\w+)\"";
   ```
 
-[Githup 参考地址]: 
+  [链接地址] (https://github.com/RainPoetry/core/tree/master/oracle-log/src/main/java/com/cc/oracle/monitor/modifyGroup/ddl) 
 
 ### 优雅的实现各种数据库间的类型转换
 
@@ -171,3 +171,4 @@ AND seg_type_name='TABLE' AND operation !='SELECT_FOR_UPDATE'
   // 更通用的方式
   String type2 = DataBase.from(MySql.class,"BIGINT").to(Postgres.class);
   ```
+    [链接地址] (https://github.com/RainPoetry/core/blob/master/guava-cc/src/main/java/com/rainpoetry/common/db/relation) 
