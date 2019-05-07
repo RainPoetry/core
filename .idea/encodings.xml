@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/akka_cc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/antlr" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/assembly" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/flume-core/flume-cc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/guava-cc" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/kafka-core/kafka-rpc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mongodb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/oracle-log" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/rp-hadoop" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spark-core" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/spark-core/spark-rpc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spark-core/spark-shell" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spark-core/sparkCore" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/spark-core/sparkSql" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zookeeper" charset="UTF-8" />
   </component>
 </project>

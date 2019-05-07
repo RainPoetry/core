@@ -7,12 +7,6 @@ package com.cc.oracle.monitor.oracle;
  */
 
 import com.cc.oracle.monitor.Monitor;
-
-import com.cc.oracle.monitor.logminer.LogMiner;
-import com.cc.oracle.monitor.logminer.LogMinerConfig;
-import com.cc.oracle.monitor.logminer.LogMinerConfigException;
-
-
 import com.rainpoetry.common.db.JdbcManager;
 import com.rainpoetry.common.scheduler.Scheduler;
 import com.rainpoetry.common.scheduler.SchedulerPool;
@@ -22,37 +16,49 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
 public class OracleMonitorManager implements Monitor {
 
-	private CountDownLatch shutdownLatch = new CountDownLatch(1);
+	private final CountDownLatch shutdownLatch = new CountDownLatch(1);
 
-	private static final int thread_nums = 5;
+	private static final int thread_nums = 3;
 	private static final String offsetFile = "oracle-ddl-offset";
 
-	private Connection connection = null;
+	private final Connection connection;
+	private final Connection target;
 
 	private final AtomicBoolean isStart = new AtomicBoolean(false);
 
 	private final Scheduler scheduler;
-	private EventLoop loop;
+	private final EventLoop loop;
 
 	private final OracleManagerConfig config;
 
 	public OracleMonitorManager(OracleManagerConfig config) {
 		this.config = config;
 		this.scheduler = new SchedulerPool(thread_nums);
+		String userName = config.getString(OracleManagerConfig.SOURCE_DATABASE_USERNAME);
+		String password = config.getString(OracleManagerConfig.SOURCE_DATABASE_PASSWORD);
+		String url = config.getString(OracleManagerConfig.SOURCE_DATABASE_URL);
+		String driver = config.getString(OracleManagerConfig.DATABASE_DRIVER);
+		connection = JdbcManager.connect(userName, password, url, driver);
+
+		String userName2 = config.getString(OracleManagerConfig.Target_DATABASE_USERNAME);
+		String password2 = config.getString(OracleManagerConfig.Target_DATABASE_PASSWORD);
+		String url2 = config.getString(OracleManagerConfig.Target_DATABASE_URL);
+		String driver2 = config.getString(OracleManagerConfig.Target_DATABASE_DRIVER);
+		target = JdbcManager.connect(userName2, password2, url2, driver2);
+
+		this.loop = new OracleMonitorProcessLoop("oracle-deal-purgatory", connection, target);
 	}
 
 	public void schedule() {
 		scheduler.scheduler("oracleDDL",
-				new OracleDDLThread(offsetFile,loop,connection,config.toMap()),
-				0,1, TimeUnit.HOURS);
+				new OracleDDLThread(offsetFile, loop, connection, config.toMap()),
+				0, 1, TimeUnit.HOURS);
 	}
 
 	@Override
@@ -65,19 +71,7 @@ public class OracleMonitorManager implements Monitor {
 		if (!isStart.get()) {
 			synchronized (this) {
 				if (!isStart.get()) {
-					String userName = config.getString(OracleManagerConfig.SOURCE_DATABASE_USERNAME);
-					String password = config.getString(OracleManagerConfig.SOURCE_DATABASE_PASSWORD);
-					String url = config.getString(OracleManagerConfig.SOURCE_DATABASE_URL);
-					String driver = config.getString(OracleManagerConfig.DATABASE_DRIVER);
-					connection = JdbcManager.connect(userName, password, url, driver);
-
-					String userName2 = config.getString(OracleManagerConfig.Target_DATABASE_USERNAME);
-					String password2 = config.getString(OracleManagerConfig.Target_DATABASE_PASSWORD);
-					String url2 = config.getString(OracleManagerConfig.Target_DATABASE_URL);
-					String driver2 = config.getString(OracleManagerConfig.Target_DATABASE_DRIVER);
-					Connection target = JdbcManager.connect(userName2, password2, url2, driver2);
-					this.loop = new OracleMonitorProcessLoop("aa",connection,target);
-					this.loop.start();
+					loop.start();
 					scheduler.startUp();
 					schedule();
 					isStart.compareAndSet(false, true);
@@ -92,7 +86,9 @@ public class OracleMonitorManager implements Monitor {
 		synchronized (this) {
 			scheduler.shutdown();
 			this.loop.stop();
-			closeConnect();
+			closeConnect(connection);
+			closeConnect(target);
+			shutdownLatch.countDown();
 		}
 	}
 
@@ -101,11 +97,11 @@ public class OracleMonitorManager implements Monitor {
 		shutdownLatch.await();
 	}
 
-	private void closeConnect() {
-		if (connection != null) {
+	private void closeConnect(Connection conn) {
+		if (conn != null) {
 			try {
-				connection.close();
-				connection = null;
+				conn.close();
+				conn = null;
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -185,8 +181,8 @@ public class OracleMonitorManager implements Monitor {
 			return this;
 		}
 
-		public Builder config(Map<?,?> config) {
-			map.putAll((Map<String, Object>)config);
+		public Builder config(Map<?, ?> config) {
+			map.putAll((Map<String, Object>) config);
 			return this;
 		}
 

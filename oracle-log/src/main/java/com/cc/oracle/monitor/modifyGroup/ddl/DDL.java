@@ -7,6 +7,8 @@ package com.cc.oracle.monitor.modifyGroup.ddl;
  */
 
 import com.google.common.collect.ImmutableMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -14,6 +16,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public abstract class DDL {
+
+
+	private static final Logger logger = LoggerFactory.getLogger(DDL.class);
 
 	public final String tableName;
 
@@ -42,12 +47,17 @@ public abstract class DDL {
 					 ddl = new Drop(tableName);
 					 break;
 				default:
-					throw new DDLException("无法识别的操作： " + operation);
+					throw new DDLException("unrecognized Operate： " + operation);
 			}
 			ddl.parse(sql);
 			return ddl;
 		} else {
-			throw new DDLException("无法解析的 DDL 语句："+sql);
+			if (sql.startsWith("CREATE TABLE")) {
+				logger.info("it's a create sql, we ignore it ： " + sql);
+				return null;
+			}
+			else
+				throw new DDLException("Unresolved DDL statement："+sql);
 		}
 	}
 
@@ -64,7 +74,7 @@ public abstract class DDL {
 		String sql4 = "ALTER TABLE \"PCCGZ\".\"11111\" \n" +
 				"ADD (\"date2\" DATE )\n" +
 				"ADD (\"date3\" DATE );";
-		DDL ddl = DDL.of(sql4);
+		DDL ddl = DDL.of(sql2);
 		System.out.println(ddl.toString());
 	}
 

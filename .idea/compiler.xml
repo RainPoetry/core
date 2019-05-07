@@ -6,19 +6,29 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="flume-cc" />
-        <module name="kafka-rpc" />
+        <module name="antlr" />
+        <module name="assembly" />
+        <module name="guava-cc" />
+        <module name="rp-hadoop" />
+        <module name="spark-analyst" />
         <module name="spark-rpc" />
+        <module name="spark-shell" />
+        <module name="sparkCore" />
+        <module name="sparkSql" />
+        <module name="zookeeper" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="1.8">
+      <module name="antlr" target="1.8" />
+      <module name="assembly" target="1.8" />
       <module name="core" target="1.8" />
-      <module name="flume-cc" target="1.8" />
-      <module name="kafka-core" target="1.8" />
-      <module name="kafka-rpc" target="1.8" />
-      <module name="rpc" target="1.8" />
-      <module name="spark-core" target="1.8" />
+      <module name="guava-cc" target="1.8" />
+      <module name="rp-hadoop" target="1.8" />
       <module name="spark-rpc" target="1.8" />
+      <module name="spark-shell" target="1.8" />
+      <module name="sparkCore" target="1.8" />
+      <module name="sparkSql" target="1.8" />
+      <module name="zookeeper" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

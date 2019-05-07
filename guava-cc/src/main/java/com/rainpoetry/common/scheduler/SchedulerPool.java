@@ -18,7 +18,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class SchedulerPool extends Logging implements Scheduler {
 
-	private static final String SCHEDULER_IDENTIFY = "scheduler-pool";
+	private static final String SCHEDULER_IDENTIFY = "scheduler-pool ";
 	private static final boolean DEFAULT_DAEMON = true;
 
 	private final int threads;
@@ -37,14 +37,11 @@ public class SchedulerPool extends Logging implements Scheduler {
 	}
 
 	public SchedulerPool(String threadNamePrefix, int threads, boolean daemon) {
+		logIdent = SCHEDULER_IDENTIFY;
 		this.threadNamePrefix = threadNamePrefix;
 		this.threads = threads;
 		this.daemon = daemon;
-	}
 
-	@Override
-	protected String ident() {
-		return SCHEDULER_IDENTIFY;
 	}
 
 	@Override

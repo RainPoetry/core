@@ -24,6 +24,8 @@ public abstract class Modify  extends DDLOperate{
 
 	protected void commonDeal(String sql) {
 		DDL ddl = DDL.of(sql);
+		if (ddl == null)
+			return;
 		if (ddl instanceof AddOrModify) {
 			AddOrModify modify = (AddOrModify) ddl;
 			add(modify.tableName, modify.maps);

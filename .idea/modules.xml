@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/antlr/antlr.iml" filepath="$PROJECT_DIR$/antlr/antlr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/assembly/assembly.iml" filepath="$PROJECT_DIR$/assembly/assembly.iml" />
       <module fileurl="file://$PROJECT_DIR$/core.iml" filepath="$PROJECT_DIR$/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/flume-core/flume-cc/flume-cc.iml" filepath="$PROJECT_DIR$/flume-core/flume-cc/flume-cc.iml" />
-      <module fileurl="file://$PROJECT_DIR$/kafka-core/kafka-rpc/kafka-rpc.iml" filepath="$PROJECT_DIR$/kafka-core/kafka-rpc/kafka-rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/guava-cc/guava-cc.iml" filepath="$PROJECT_DIR$/guava-cc/guava-cc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rp-hadoop/rp-hadoop.iml" filepath="$PROJECT_DIR$/rp-hadoop/rp-hadoop.iml" />
       <module fileurl="file://$PROJECT_DIR$/spark-core/spark-rpc/spark-rpc.iml" filepath="$PROJECT_DIR$/spark-core/spark-rpc/spark-rpc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spark-core/spark-shell/spark-shell.iml" filepath="$PROJECT_DIR$/spark-core/spark-shell/spark-shell.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spark-core/sparkCore/sparkCore.iml" filepath="$PROJECT_DIR$/spark-core/sparkCore/sparkCore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spark-core/sparkSql/sparkSql.iml" filepath="$PROJECT_DIR$/spark-core/sparkSql/sparkSql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zookeeper/zookeeper.iml" filepath="$PROJECT_DIR$/zookeeper/zookeeper.iml" />
     </modules>
   </component>
 </project>

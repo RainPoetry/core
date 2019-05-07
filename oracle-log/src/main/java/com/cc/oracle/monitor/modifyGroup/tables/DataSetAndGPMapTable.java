@@ -59,7 +59,7 @@ public class DataSetAndGPMapTable extends RelativeTable {
 	@Override
 	public void drop(String table, List<String> cols) {
 		commonDrop(cols, table, drop);
-		logger.info("表: in_config_fieldmapping , 删除字段： " + cols);
+		logger.info("table: in_config_fieldmapping , delete columns： " + cols);
 	}
 
 	@Override
@@ -71,7 +71,7 @@ public class DataSetAndGPMapTable extends RelativeTable {
 		o[4] = oldName;
 		o[5] = table;
 		JdbcManager.prepareExecute(conn, update, o);
-		logger.info("表: in_config_fieldmapping , 字段重命名：" + oldName + " ==> " + newName);
+		logger.info("table: in_config_fieldmapping , column rename：" + oldName + " ==> " + newName);
 	}
 
 
@@ -92,7 +92,7 @@ public class DataSetAndGPMapTable extends RelativeTable {
 			storeList.add(builderMap);
 		}
 		boolean b = JdbcManager.batchInsert(storeList, conn, "in_config_fieldmapping");
-		String head = "表: in_config_fieldmapping ,新增 " + (b == true ? "成功" : "失败");
+		String head = "table: in_config_fieldmapping ,add " + (b == true ? "success" : "fail");
 		logger.info(head + ": " + list);
 	}
 

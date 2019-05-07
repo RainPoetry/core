@@ -30,18 +30,20 @@ public class ZkClient extends Logging {
 		zookeeperClient = new ZookeeperClient(connectString, sessionTimeoutMs, connectionTimeoutMs, maxInflightRequests);
 	}
 
-	public String createSequentialPersistentPath(String path, byte[] data) {
+	public String createSequentialEphemeralPath(String path, byte[] data) {
 		CreateRequest createRequest = new CreateRequest(data, path, CreateMode.EPHEMERAL_SEQUENTIAL, ZooDefs.Ids.OPEN_ACL_UNSAFE);
 		CreateResponse createResponse = (CreateResponse) retryRequestUntilConnected(createRequest);
 		createResponse.maybeThrow();
 		return createResponse.name();
 	}
 
+
+
 	public boolean existNode(String path) {
 		ExistsRequest request = new ExistsRequest(path);
 		ExistsResponse response = (ExistsResponse) retryRequestUntilConnected(request);
 		response.maybeThrow();
-		return response.stat() == null;
+		return response.stat() != null;
 	}
 
 	// 递归删除节点
@@ -150,6 +152,10 @@ public class ZkClient extends Logging {
 				zookeeperClient.waitUntilConnected();
 		}
 		return responseQueue;
+	}
+
+	public void close() {
+		zookeeperClient.close();
 	}
 
 

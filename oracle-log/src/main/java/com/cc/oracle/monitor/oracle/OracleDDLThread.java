@@ -17,11 +17,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.ByteBuffer;
-import java.nio.file.Paths;
 import java.sql.Connection;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +28,7 @@ public class OracleDDLThread implements Runnable{
 	private static final Logger logger = LoggerFactory.getLogger(OracleDDLThread.class);
 
 	private String offset;
-	private final ReadWriteFile offsetFile;
+	private final ReadWriteFile<String> offsetFile;
 	private final EventLoop loop;
 	private final Connection connection;
 	private LogMiner logMiner;
@@ -59,7 +56,7 @@ public class OracleDDLThread implements Runnable{
 
 	@Override
 	public void run() {
-		logger.info("开始 Oracle 日志采集");
+		logger.info("start Oracle log collection");
 		ByteBuffer buffer = offsetFile.read();
 		if (buffer.capacity() > 0 )
 			offset = new String(buffer.array());
@@ -67,6 +64,6 @@ public class OracleDDLThread implements Runnable{
 		if (offset !=null && !offset.trim().equals("0"))
 			list.forEach(loop::post);
 		offsetFile.write(Arrays.asList(logMiner.maxScn+""));
-		logger.info("update scn 记录： " + logMiner.maxScn);
+		logger.info("update scn = " + logMiner.maxScn);
 	}
 }

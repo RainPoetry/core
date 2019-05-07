@@ -7,19 +7,12 @@ package com.cc.oracle;
  */
 
 import com.cc.oracle.monitor.Monitor;
-import com.cc.oracle.monitor.offset.OracleDBFile;
 import com.cc.oracle.monitor.oracle.OracleMonitorManager;
-import com.rainpoetry.common.io.ReadWriteFile;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Properties;
 
 public class Application {
-
-	private final static String DRIVER = "com.mysql.jdbc.Driver";
 
 	public static void main(String[] args) throws IOException {
 		Properties p = new Properties();
@@ -28,7 +21,7 @@ public class Application {
 				.config(p)
 				.build();
 		monitor.start();
-		Runtime.getRuntime().addShutdownHook(new Thread(()->{
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			monitor.stop();
 		}));
 		try {

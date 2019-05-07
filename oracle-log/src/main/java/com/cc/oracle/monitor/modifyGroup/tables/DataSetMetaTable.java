@@ -49,7 +49,7 @@ public class DataSetMetaTable extends RelativeTable {
 	@Override
 	public void drop(String table, List<String> cols) {
 		commonDrop(cols, "com_class_item_rel", drop);
-		logger.info("表: com_class_item_rel , 删除字段： " + cols);
+		logger.info("table: com_class_item_rel , remove columns： " + cols);
 	}
 
 	@Override
@@ -61,7 +61,7 @@ public class DataSetMetaTable extends RelativeTable {
 		o[3] = oldName;
 		o[4] = table;
 		JdbcManager.prepareExecute(conn, update, o);
-		logger.info("表: com_class_item_rel ,字段重命名：" + oldName + " ==> " + newName);
+		logger.info("table: com_class_item_rel ,columns rename：" + oldName + " ==> " + newName);
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class DataSetMetaTable extends RelativeTable {
 			storeList.add(builderMap);
 		}
 		boolean b = JdbcManager.batchInsert(storeList, conn, "com_class_item_rel");
-		String head = "表: com_class_item_rel ,新增 " + (b == true ? "成功" : "失败");
+		String head = "table: com_class_item_rel ,add " + (b == true ? "success" : "fail");
 		logger.info(head + ": " + list);
 	}
 

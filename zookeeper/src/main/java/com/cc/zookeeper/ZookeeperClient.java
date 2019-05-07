@@ -7,6 +7,7 @@ import com.cc.zookeeper.exception.ZooKeeperClientTimeoutException;
 import com.cc.zookeeper.handler.ZkHandler;
 import com.cc.zookeeper.request.*;
 import com.cc.zookeeper.response.*;
+import org.apache.zookeeper.*;
 import org.apache.zookeeper.data.ACL;
 import org.apache.zookeeper.data.Stat;
 

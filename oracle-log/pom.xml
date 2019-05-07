@@ -21,7 +21,7 @@
         <mvn-compiler-plugin.version>3.8.0</mvn-compiler-plugin.version>
 
 
-        <scala.version>2.12.8</scala.version>
+        <scala.version>2.11.8</scala.version>
         <slf4j.version>1.7.25</slf4j.version>
     </properties>
 

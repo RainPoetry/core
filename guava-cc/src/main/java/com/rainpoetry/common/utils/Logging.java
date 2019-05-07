@@ -15,7 +15,7 @@ public abstract class Logging {
 
 	protected final Logger logger = LoggerFactory.getLogger(loggerName);
 
-	protected String logIdent = ident();
+	protected String logIdent;
 
 	protected String msgWithLogIdent(String msg) {
 		return logIdent == null ? msg : logIdent + msg;
@@ -53,5 +53,4 @@ public abstract class Logging {
 		logger.error(msgWithLogIdent(msg), t);
 	}
 
-	protected abstract String ident();
 }

@@ -56,14 +56,14 @@ public class LogMiner {
 			// 打印获分析日志文件信息
 			resultSet = statement.executeQuery("SELECT db_name, thread_sqn, filename FROM v$logmnr_logs");
 			while (resultSet.next())
-				logger.debug("已添加日志文件==>" + resultSet.getObject(3));
+				logger.debug("add log file ==>" + resultSet.getObject(3));
 			// 分析字典文件,
 			boolean retry = false;
 			callableStatement = conn.prepareCall(analysisLogSQL(scn));
 			try {
 				callableStatement.execute();
 			}catch (SQLException e) {
-				logger.warn("scn 值过高：" + scn +" , 取 scn = 0 进行重试");
+				logger.warn("scn is unExpected ：" + scn +" ,  set scn = 0 and retry");
 				retry = true;
 				callableStatement = conn.prepareCall(analysisLogSQL("0"));
 				callableStatement.execute();

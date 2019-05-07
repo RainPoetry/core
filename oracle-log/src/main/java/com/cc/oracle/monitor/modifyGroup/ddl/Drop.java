@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 
 public class Drop extends DDL{
 
-	private static final String DROP_REGEX = "(?<=[\\(,])\\s*([^\\,)]+)";
+	private static final String DROP_REGEX = "(?<=[\\(,])\\s*([^\\),]+)";
 
 	public List<String> cols;
 
@@ -27,6 +27,7 @@ public class Drop extends DDL{
 		Pattern p = Pattern.compile(DROP_REGEX);
 		Matcher m = p.matcher(sql);
 		while(m.find()) {
+			System.out.println(m.group());
 			cols.add(m.group().replaceAll("\"",""));
 		}
 	}
