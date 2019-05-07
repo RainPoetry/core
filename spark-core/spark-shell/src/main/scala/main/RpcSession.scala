@@ -1,4 +1,4 @@
-package com.cc.network
+package main
 
 import com.cc.network.server.Master
 import protocol.client.{Execute, RequireExecutor}
@@ -26,16 +26,21 @@ class RpcSession(host: String, port: Int = Master.port) {
     rpcEnv.setupEndpointRef(response.address, response.name)
   }
 
-  def send(msg: String): String = {
-    executor.askSync[Reply](Execute(msg)).msg
+  def send(msg: String): Response = {
+    val reply = executor.askSync[Reply](Execute(msg))
+    reply.data match {
+      case a:Array[String] => Response(a,reply.success,reply.duration)
+      case s:String => Response(Array(s),reply.success,reply.duration)
+    }
   }
 
   def close(): Unit = {
     rpcEnv.shutdown()
   }
 
-
 }
+
+case class Response(data:Array[String], success: Boolean, duration:Long)
 
 object RpcSession extends Logging{
   def main(args: Array[String]): Unit = {
@@ -58,9 +63,14 @@ object RpcSession extends Logging{
         |select * from data;
       """.stripMargin
 
-    val session = new RpcSession("localhost")
-    val reply = session.send(sql2)
-    info(s"${reply}")
+    // 与服务器端建立连接
+    val session = new RpcSession("localhost",18088)
+    val response = session.send(sql2)
+    info(s"${response.duration}   ${response.success} ")
+    println(s"${response.data.mkString("\r\n")}")
+    // 关闭连接
     session.close()
   }
+
+
 }

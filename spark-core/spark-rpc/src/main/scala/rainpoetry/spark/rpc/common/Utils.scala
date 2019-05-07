@@ -1,12 +1,11 @@
 package rainpoetry.spark.rpc.common
 
-import java.net.BindException
-
-import io.netty.channel.unix.Errors.NativeIoException
 import rainpoetry.spark.rpc.RpcConf
 import rainpoetry.spark.rpc.error.RpcException
 
 import scala.rainpoetry.common.Logging
+
+
 
 /*
  * User: chenchong

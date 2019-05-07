@@ -12,26 +12,17 @@ import org.apache.spark.sql.SparkSession
 class RpcSqlParser(session: SparkSession, interpreter: SparkInterpreter) extends AbstractSqlParser {
   override def astBuilder: AstBuilder = new AstBuilder(session, interpreter)
 
-  def command(command: String): (String, Long) = {
+  def command(command: String): (Array[JobStatus], Array[Long]) = {
     val tracker = execute(command)
-    var time: Long = 0
-    val array = tracker.children.map(
-      child => {
-        val childTime = child.duration
-        time += childTime
-        val data = child.jobStatus.data
-        val msg = child.jobStatus.msg
-        if (childTime > 1000) {
-          " 耗时： " + (childTime / 1000) + "s" + " , " + msg + "\r\n" + data
-        } else {
-          " 耗时： " + childTime+ "ms" + " , " + msg + "\r\n" + data
-        }
+    val times = Array.ofDim[Long](tracker.nums)
+    val jobs = Array.ofDim[JobStatus](tracker.nums)
+    (0 to tracker.nums-1).map(
+      index => tracker.productElement(index) match {
+        case e: ExecutorTracker =>
+          times(index) = e.duration
+          jobs(index) = e.jobStatus
       }
     )
-    if (array.length == 0) {
-      (s"无法解析的语句: ${command}", time)
-    } else {
-      (array(array.length-1), time)
-    }
+    (jobs, times)
   }
 }

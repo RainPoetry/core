@@ -51,7 +51,7 @@ class ExecutorTracker(val nums: Int = 0) extends Product {
 
 case class JobStatus(
                     msg: String,
-                    data:String,
+                    data: Any,
                     status:Status.kind
                   )
 

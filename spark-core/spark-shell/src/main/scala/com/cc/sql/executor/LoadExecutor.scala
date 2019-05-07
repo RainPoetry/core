@@ -21,6 +21,9 @@ class LoadExecutor(format: String,
     commonParse{
       var table: DataFrame = null
       var reader = session.read.options(config)
+      if (config.contains("schema")) {
+        reader.schema(config("schema"))
+      }
       format match {
         case "jdbc" =>
           table = reader.format(format).load()
@@ -36,8 +39,9 @@ class LoadExecutor(format: String,
         tableName  = UUID.randomUUID().toString.replace("-","")
       }
       table.createOrReplaceTempView(tableName)
-      val snapshot = readStdout(session.table(tableName).show(false))
-      success(s"${snapshot}",s"视图名称：${tableName}")
+      val rs = session.table(tableName).toJSON.collect()
+//      val snapshot = readStdout(session.table(tableName).show(false))
+      success(rs,s"视图名称：${tableName}")
     }
   }
 }

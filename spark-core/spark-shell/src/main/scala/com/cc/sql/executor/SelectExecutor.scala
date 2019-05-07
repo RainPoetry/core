@@ -20,8 +20,9 @@ class SelectExecutor(sql:String, var tableName: String) extends Executor {
         tableName  = UUID.randomUUID().toString.replace("-","")
       }
       session.sql(sql).createOrReplaceTempView(tableName)
-      val snapshot = readStdout(session.table(tableName).show(false))
-      success(s"${snapshot}",s"success: 视图名称：${tableName}")
+      val rs = session.table(tableName).toJSON.collect()
+//      val snapshot = readStdout(session.table(tableName).show(false))
+      success(rs,s"success: 临时视图名称：${tableName}")
     }
   }
 }

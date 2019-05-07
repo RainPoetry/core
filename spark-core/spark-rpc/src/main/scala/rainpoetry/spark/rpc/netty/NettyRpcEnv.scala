@@ -440,8 +440,8 @@ private[netty] class RequestMessage(
       out.close()
       bos.close()
     }
-    val buffer = bos.toByteBuffer.slice()
-    val data = nettyEnv.serialize(content);
+    val buffer = bos.toByteBuffer
+    val data = nettyEnv.serialize(content)
 //    data.flip()
     val rs = ByteBuffer.allocate(buffer.capacity() + data.capacity())
     rs.put(buffer)

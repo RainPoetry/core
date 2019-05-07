@@ -17,12 +17,12 @@
 
 package rainpoetry.spark.rpc.client;
 
+
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Throwables;
 import com.google.common.util.concurrent.SettableFuture;
-import com.sun.istack.internal.Nullable;
 import io.netty.channel.Channel;
 import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
@@ -76,7 +76,7 @@ public class TransportClient implements Closeable {
 
   private final Channel channel;
   private final TransportResponseHandler handler;
-  @Nullable
+
   private String clientId;
   private volatile boolean timedOut;
 

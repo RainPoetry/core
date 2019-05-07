@@ -39,7 +39,6 @@ object SparkBuilder {
   def main(args: Array[String]): Unit = {
     val interpreter = new SparkInterpreter()
     val sparkConf = interpreter.start()
-//    interpreter.execute()
   }
 
 }

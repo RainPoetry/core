@@ -19,7 +19,7 @@ abstract class Executor {
 
   protected def parse(session: SparkSession, interpreter: SparkInterpreter): ExecutorTracker
 
-  def  commonParse(f: => ExecutorTracker): ExecutorTracker ={
+  def commonParse(f: => ExecutorTracker): ExecutorTracker ={
     try {
       f
     } catch {
@@ -53,12 +53,12 @@ abstract class Executor {
     }
   }
 
-  def success(data:String,msg: String = ""): ExecutorTracker = {
-    new ExecutorTracker().status( new JobStatus(msg, data, Status.Success))
+  def success(data:Any, msg: String = ""): ExecutorTracker = {
+    new ExecutorTracker().status(new JobStatus(msg, data, Status.Success))
   }
 
-  def failure(data: String): ExecutorTracker = {
-    new ExecutorTracker().status( new JobStatus("", data, Status.Failure))
+  def failure(data: Any): ExecutorTracker = {
+    new ExecutorTracker().status(new JobStatus("", data, Status.Failure))
   }
 
   protected def readStdout[T](f: =>Unit) :String = {

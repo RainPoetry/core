@@ -22,6 +22,7 @@ class AstBuilder(session:SparkSession, interpreter:SparkInterpreter)  extends Sq
     ctx.accept(this).asInstanceOf[T]
   }
 
+
   protected def plan(tree: ParserRuleContext): ExecutorTracker = typedVisit(tree)
 
   override def visitStatement(ctx: StatementContext): ExecutorTracker = {
@@ -36,7 +37,6 @@ class AstBuilder(session:SparkSession, interpreter:SparkInterpreter)  extends Sq
 
   override def visitSql(ctx: SqlContext): ExecutorTracker = {
     println(ctx.option.getText +" : " + ctx.getText)
-    info(ctx.option.getText +" : " + ctx.getText)
     val executor = ctx.option.getType match {
       case LOAD => LoadExecutor(ctx)
       case SAVE => SaveExecutor(ctx)
@@ -52,7 +52,6 @@ class AstBuilder(session:SparkSession, interpreter:SparkInterpreter)  extends Sq
   }
 
   override def visitOther(ctx: OtherContext): ExecutorTracker = {
-      info("code : " + ctx.getText)
       println("code : " + ctx.getText)
       new CodeExecutor(ctx.getText).exec(session,interpreter)
   }

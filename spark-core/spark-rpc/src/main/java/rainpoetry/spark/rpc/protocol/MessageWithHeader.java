@@ -18,7 +18,6 @@
 package rainpoetry.spark.rpc.protocol;
 
 import com.google.common.base.Preconditions;
-import com.sun.istack.internal.Nullable;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.FileRegion;
 import io.netty.util.ReferenceCountUtil;
@@ -36,7 +35,7 @@ import java.nio.channels.WritableByteChannel;
  */
 class MessageWithHeader extends AbstractFileRegion {
 
-  @Nullable
+
   private final ManagedBuffer managedBuffer;
   private final ByteBuf header;
   private final int headerLength;
@@ -67,7 +66,7 @@ class MessageWithHeader extends AbstractFileRegion {
    * @param bodyLength the length of the message body, in bytes.
      */
   MessageWithHeader(
-      @Nullable ManagedBuffer managedBuffer,
+      ManagedBuffer managedBuffer,
       ByteBuf header,
       Object body,
       long bodyLength) {

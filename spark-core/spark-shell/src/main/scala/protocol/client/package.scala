@@ -13,4 +13,5 @@ package object client {
 
   case class Execute(result: String)
 
+  case class Detail(result: String)
 }

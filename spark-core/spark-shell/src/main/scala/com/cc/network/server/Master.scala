@@ -39,6 +39,7 @@ class Master(override val rpcEnv: RpcEnv) extends Logging with ThreadSafeRpcEndp
   }
 
   override def onStart(): Unit = {
+
     zk = new ZkSession(PropsUtils.get("zkServers").getOrElse(throw new Exception("zkServers 配置信息不存在")))
     val masterPath = zk.register(RpcAddress("localhost", Master.port))
     val parallelism = PropsUtils.get("parallelism").getOrElse("5").toInt
