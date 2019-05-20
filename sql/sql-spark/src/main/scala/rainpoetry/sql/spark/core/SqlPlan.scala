@@ -11,11 +11,11 @@ abstract class ExecutePlan extends ExecuteNode[ExecutePlan] {
 
 }
 
-abstract class SqlPlan extends ExecutePlan {
+abstract class SqlPlan(val code:String) extends ExecutePlan {
 
 }
 
 
-abstract class SparkCodePlan extends ExecutePlan {
+abstract class SparkCodePlan(val code:String) extends ExecutePlan {
 
 }

@@ -8,7 +8,7 @@ import rainpoetry.sql.spark.core.{ExecutePlan, SparkCodePlan}
  * description:
  */
 
-case class OriginSparkCode(code:String,
-                           plan:Option[ExecutePlan]) extends SparkCodePlan{
+case class OriginSparkCode(override val  code:String,
+                           plan:Option[ExecutePlan]) extends SparkCodePlan(code){
   override def children: Seq[ExecutePlan] = plan.toSeq
 }

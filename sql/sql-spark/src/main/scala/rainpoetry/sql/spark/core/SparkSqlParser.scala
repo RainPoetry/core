@@ -26,7 +26,12 @@ object SparkSqlParser{
 
     val parser = new SparkSqlParser
     val plan = parser.command(sql)
-    println(plan)
+    plan.foreach{
+      case plan:SqlPlan =>
+        println("sql: "+ plan.code)
+      case plan:SparkCodePlan =>
+        println("code:"+plan.code)
+    }
 
   }
 }

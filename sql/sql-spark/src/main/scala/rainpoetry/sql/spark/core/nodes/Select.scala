@@ -8,38 +8,38 @@ import rainpoetry.sql.spark.core.{ExecutePlan, SqlPlan}
  * description:
  */
 
-case class Select(code: String,
-                  plan: Option[ExecutePlan]) extends SqlPlan {
+case class Select(override val code: String,
+                  plan: Option[ExecutePlan]) extends SqlPlan(code) {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
 
-case class Create(code: String,
-                  plan: Option[ExecutePlan]) extends SqlPlan {
+case class Create(override val code: String,
+                  plan: Option[ExecutePlan]) extends SqlPlan(code)  {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
 
-case class Drop(code: String,
-                plan: Option[ExecutePlan]) extends SqlPlan {
+case class Drop(override val code: String,
+                plan: Option[ExecutePlan]) extends SqlPlan(code)  {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
 
-case class Explain(code: String,
-                   plan: Option[ExecutePlan]) extends SqlPlan {
+case class Explain(override val code: String,
+                   plan: Option[ExecutePlan]) extends SqlPlan(code)  {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
 
-case class Insert(code: String,
-                   plan: Option[ExecutePlan]) extends SqlPlan {
+case class Insert(override val code: String,
+                   plan: Option[ExecutePlan]) extends SqlPlan(code)  {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
 
-case class Show(code: String,
-                  plan: Option[ExecutePlan]) extends SqlPlan {
+case class Show(override val code: String,
+                  plan: Option[ExecutePlan]) extends SqlPlan(code)  {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }

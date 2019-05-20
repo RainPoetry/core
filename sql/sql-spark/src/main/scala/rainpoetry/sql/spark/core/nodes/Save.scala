@@ -1,7 +1,7 @@
 package rainpoetry.sql.spark.core.nodes
 
 import rainpoetry.sql.spark.antlr.SqlParser._
-import rainpoetry.sql.spark.core.{ExecutePlan, SqlPlan}
+import rainpoetry.sql.spark.core.{ExecutePlan, SparkCodePlan}
 
 /*
  * User: chenchong
@@ -9,8 +9,8 @@ import rainpoetry.sql.spark.core.{ExecutePlan, SqlPlan}
  * description:
  */
 
-case class Save(code: String,
-                plan: Option[ExecutePlan]) extends SqlPlan {
+case class Save(override val code: String,
+                plan: Option[ExecutePlan]) extends SparkCodePlan(code) {
 
   override def children: Seq[ExecutePlan] = plan.toSeq
 }
