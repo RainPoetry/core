@@ -12,7 +12,7 @@
     <artifactId>rp-hadoop</artifactId>
 
     <properties>
-        <hadoop.version>3.2.0</hadoop.version>
+        <hadoop.version>3.2.4</hadoop.version>
     </properties>
 
     <dependencies>
